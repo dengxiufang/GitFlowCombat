@@ -1,4 +1,4 @@
-### gitflow 工作流程
+## gitflow 工作流程
 
 * 项目负责人在本地master基础上创建一个 develop 分支,推送到服务器
 ```git
@@ -14,7 +14,7 @@ git checkout -b develop origin/develop
 develop 这个分支将包含这个项目的完整历史记录，而master将包含缩略版本
 
 
-### 新功能开发流程
+## 新功能开发流程
 #### 新建feature分支
 * 其他开发者走下面流程
 * 下面开始基于 develop 分支创建新功能分支
@@ -46,7 +46,7 @@ git branch -d feature/demo
 **注意事项:合并可能会有冲突，应该谨慎处理冲突**
 #### 在测试环境发布develop分支代码(提交测试)
 
-### 线上版本发布流程
+## 线上版本发布流程
 #### 从develop中创建准备发布的release分支
 * 当主测试流程完成，源码已趋近于稳定状态，应该准备一个发布版本，确立版本号:
 ```git
@@ -80,3 +80,33 @@ git branch -d release-0.1.0
 git tag -a 0.1.0 RELEASE -m "Initial public release" master
 git push --tags
 ```
+
+## 线上Bug修复流程
+当终端用户，反馈系统有bug时，为了处理bug，需要从master中创建出保养分支；等到bug修复完成，
+需要合并回master:
+ 
+#### 创建 hotfix 分支
+```git
+git checkout -b issue-#001 master
+```
+#### 修改bug  fix the bug
+#### 完成修复，合并到 master 发布
+```git
+git checkout master
+git merge issue-#001
+git push
+```
+#### 打标签
+```git
+git tag -a 0.1.1.RELEASE -m "Inital public release" master
+git push --tags
+```
+#### 合并到develop
+```git
+git checkout develop
+git merge issue-#001
+git push
+```
+
+
+[参考资料](https://www.jianshu.com/p/9a76e9aa9534)
